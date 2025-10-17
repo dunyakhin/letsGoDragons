@@ -1,6 +1,8 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Вперед Драконы</title>
+    <title>Вперед Витязь!</title>
     <style>
         .container {position: absolute; top: 0; right: 0; bottom: 0; left: 0;}
         .button {
@@ -18,7 +20,7 @@
 </head>
 <body>
     <div class="container">
-        <input type="button" class="button" value="Вперед Драконы!"/>
+        <input type="button" class="button" value="Нажми меня"/>
     </div>
     <script>
       const DELAY = 500; //ms
@@ -72,7 +74,7 @@
         } else {
           noSleep.disable(); // let the screen turn off.
           wakeLockEnabled = false;
-          toggleEl.value = "Вперед Драконы";
+          toggleEl.value = "Нажми меня";
           toggleEl.classList.remove("hidden");
           window.clearInterval(to);
           closeFullscreen();
@@ -80,6 +82,11 @@
       }
 
       var toggleEl = document.querySelector(".button");
+      toggleEl.addEventListener('click', toggleWakeLock, false);
+      bodyEl.addEventListener('click', toggleWakeLock, false);
+    </script>
+</body>
+</html>
       toggleEl.addEventListener('click', toggleWakeLock, false);
       bodyEl.addEventListener('click', toggleWakeLock, false);
     </script>
