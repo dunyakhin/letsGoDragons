@@ -1,122 +1,91 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Вперед Драконы!</title>
-<style>
-body {
-    margin: 0;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #003c69;
-    font-family: Arial, sans-serif;
-}
-
-.button {
-    position: relative;
-    font-weight: bold;
-    font-size: 50px;
-    padding: 30px 80px;
-    color: #003c69;
-    border: none;
-    border-radius: 18px;
-    cursor: pointer;
-    background: linear-gradient(135deg, #ffb41e, #ffd84f);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-    overflow: hidden;
-    animation: pulse 1.8s infinite ease-in-out;
-    transition: all 0.3s ease;
-}
-
-/* Эффект перелива */
-.button::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -75%;
-    width: 50%;
-    height: 100%;
-    background: linear-gradient(
-        120deg,
-        rgba(255,255,255,0.6) 0%,
-        rgba(255,255,255,0.2) 50%,
-        rgba(255,255,255,0) 100%
-    );
-    transform: skewX(-25deg);
-    animation: shine 2s infinite;
-    pointer-events: none;
-}
-
-@keyframes shine {
-    0% { left: -75%; }
-    50% { left: 125%; }
-    100% { left: 125%; }
-}
-
-@keyframes pulse {
-    0%, 100% {
-        transform: scale(1);
-        box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-    }
-    50% {
-        transform: scale(1.08);
-        box-shadow: 0 15px 35px rgba(0,0,0,0.6);
-    }
-}
-
-.button:hover {
-    transform: scale(1.1);
-    box-shadow: 0 15px 35px rgba(0,0,0,0.6);
-    background: linear-gradient(135deg, #ffd84f, #ffeb7f);
-}
-
-.button:active {
-    transform: scale(0.95);
-    animation: none;
-}
-</style>
-<script src="./NoSleep.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Вперед Драконы!</title>
+    <style>
+        .container {position: absolute; top: 0; right: 0; bottom: 0; left: 0;}
+        .button {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            font-weight: bold;
+            font-size: 20pt;
+            padding: 5px;
+        }
+        .hidden {display: none;}
+    </style>
+    <script src="./NoSleep.min.js"></script>
 </head>
 <body>
+    <div class="container">
+        <input type="button" class="button" value="Вперед Драконы!"/>
+    </div>
+    <script>
+      const DELAY = 500; //ms
+      const noSleep = new NoSleep();
+      const bodyEl = document.querySelector('.container');
 
-<input type="button" class="button" value="Вперед Драконы!" />
+      let wakeLockEnabled = false;
+      let currentColor = 1;
+      let to = null;
 
-<script>
-const DELAY = 500; //ms
-const noSleep = new NoSleep();
-const bodyEl = document.body;
+      function toggleColor(){
+        if (currentColor){
+            document.body.style.backgroundColor = "#ffb41e";
+            bodyEl.style.backgroundColor = "#ffb41e";
+        } else {
+            document.body.style.backgroundColor = "#003c69";
+            bodyEl.style.backgroundColor = "#003c69";
+        }
+        currentColor = !currentColor;
+      }
 
-let wakeLockEnabled = false;
-let currentColor = 1;
+      function openFullscreen() {
+        if (bodyEl.requestFullscreen) {
+            bodyEl.requestFullscreen();
+        } else if (bodyEl.webkitRequestFullscreen) { /* Safari */
+            bodyEl.webkitRequestFullscreen();
+        } else if (bodyEl.msRequestFullscreen) { /* IE11 */
+            bodyEl.msRequestFullscreen();
+        }
+      }
 
-function toggleColor(){
-    if (currentColor){
-        document.body.style.backgroundColor = "#ffb41e";
-    } else {
-        document.body.style.backgroundColor = "#003c69";
-    }
-    currentColor = !currentColor;
-}
+      function closeFullscreen() {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) { /* Safari */
+            document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) { /* IE11 */
+            document.msExitFullscreen();
+        }
+      }
 
-function openFullscreen() {
-    if (bodyEl.requestFullscreen) {
-        bodyEl.requestFullscreen();
-    } else if (bodyEl.webkitRequestFullscreen) { 
-        bodyEl.webkitRequestFullscreen();
-    } else if (bodyEl.msRequestFullscreen) { 
-        bodyEl.msRequestFullscreen();
-    }
-}
+      function toggleWakeLock(e) {
+        e.stopPropagation();
+        if (!wakeLockEnabled) {
+          noSleep.enable(); // keep the screen on!
+          wakeLockEnabled = true;
+          toggleEl.value = "";
+          toggleEl.classList.add("hidden");
+          to = window.setInterval(toggleColor, DELAY);
+          openFullscreen();
+        } else {
+          noSleep.disable(); // let the screen turn off.
+          wakeLockEnabled = false;
+          toggleEl.value = "Нажми меня";
+          toggleEl.classList.remove("hidden");
+          window.clearInterval(to);
+          closeFullscreen();
+        }
+      }
 
-const button = document.querySelector('.button');
-button.addEventListener('click', () => {
-    openFullscreen();
-    noSleep.enable();
-    toggleColor();
-});
-</script>
+      var toggleEl = document.querySelector(".button");
+      toggleEl.addEventListener('click', toggleWakeLock, false);
+      bodyEl.addEventListener('click', toggleWakeLock, false);
+    </script>
 </body>
 </html>
+
 
