@@ -94,17 +94,21 @@
       transform: translate(-50%, -50%) scale(0.95);
       animation: none;
     }
-
-    .hidden {
-      display: none;
-    }
   </style>
 </head>
 <body>
   <div class="container">
-    <button class="button">Вперёд, Драконы!</button>
+    <button class="button" id="dragonButton">Вперёд, Драконы!</button>
   </div>
-  <script src="./NoSleep.min.js"></script>
+
+  <script>
+    const button = document.getElementById('dragonButton');
+
+    button.addEventListener('click', () => {
+      alert('Кнопка нажата! Вперед, Драконы!');
+      // Дополнительно можно изменить фон:
+      document.body.style.backgroundColor = '#ffeb3b';
+    });
+  </script>
 </body>
 </html>
-
