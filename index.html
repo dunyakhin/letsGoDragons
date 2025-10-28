@@ -19,25 +19,28 @@
       top: 0; right: 0; bottom: 0; left: 0;
     }
 
+    /* ==== КНОПКА ==== */
     .button {
       position: absolute;
       left: 50%;
-      top: 50%;
+      top: 70%; /* Нижняя треть экрана */
       transform: translate(-50%, -50%);
       font-weight: bold;
-      font-size: 20pt;
-      padding: 15px 40px;
+      font-size: 40pt; /* Увеличен в 2 раза */
+      padding: 30px 80px; /* Увеличен в 2 раза */
       color: #003c69;
       border: none;
-      border-radius: 12px;
+      border-radius: 18px;
       cursor: pointer;
       background: linear-gradient(135deg, #ffb41e, #ffcb4f);
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
       transition: all 0.3s ease;
       position: relative;
       overflow: hidden;
+      animation: pulse 3s infinite ease-in-out;
     }
 
+    /* Эффект переливающегося блика */
     .button::before {
       content: "";
       position: absolute;
@@ -47,12 +50,13 @@
       height: 100%;
       background: linear-gradient(
         120deg,
-        rgba(255, 255, 255, 0.4) 0%,
-        rgba(255, 255, 255, 0.1) 50%,
+        rgba(255, 255, 255, 0.6) 0%,
+        rgba(255, 255, 255, 0.2) 50%,
         rgba(255, 255, 255, 0) 100%
       );
       transform: skewX(-25deg);
-      animation: shine 3s infinite;
+      animation: shine 2.5s infinite;
+      pointer-events: none;
     }
 
     @keyframes shine {
@@ -61,14 +65,27 @@
       100% { left: 125%; }
     }
 
+    /* Плавное пульсирование кнопки */
+    @keyframes pulse {
+      0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+      }
+      50% {
+        transform: translate(-50%, -50%) scale(1.08);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+      }
+    }
+
     .button:hover {
       transform: translate(-50%, -50%) scale(1.1);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
       background: linear-gradient(135deg, #ffca47, #ffd86a);
     }
 
     .button:active {
-      transform: translate(-50%, -50%) scale(0.98);
+      transform: translate(-50%, -50%) scale(0.95);
+      animation: none;
     }
 
     .hidden {
@@ -148,4 +165,5 @@
   </script>
 </body>
 </html>
+
 
