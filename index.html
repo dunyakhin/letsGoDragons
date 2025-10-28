@@ -1,91 +1,129 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <title>Вперед Драконы!</title>
-    <style>
-        .container {position: absolute; top: 0; right: 0; bottom: 0; left: 0;}
-        .button {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            font-weight: bold;
-            font-size: 20pt;
-            padding: 5px;
-        }
-        .hidden {display: none;}
-    </style>
-    <script src="./NoSleep.min.js"></script>
+  <meta charset="UTF-8">
+  <title>Вперед Драконы!</title>
+  <style>
+    .container {
+      position: absolute;
+      top: 0; right: 0; bottom: 0; left: 0;
+      background-color: #003c69;
+    }
+
+    .button {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      font-weight: bold;
+      font-size: 48px;
+      padding: 30px 80px;
+      border: none;
+      border-radius: 30px;
+      color: #fff;
+      background: linear-gradient(45deg, #ffb41e, #ffcc4d, #ffb41e);
+      background-size: 300% 300%;
+      cursor: pointer;
+      text-shadow: 0 0 10px rgba(0,0,0,0.3);
+      box-shadow: 0 0 30px rgba(255, 180, 30, 0.6);
+      animation: gradientShift 3s ease-in-out infinite, pulse 2s ease-in-out infinite;
+      transition: transform 0.2s ease, box-shadow 0.3s ease;
+    }
+
+    .button:hover {
+      transform: translate(-50%, -50%) scale(1.05);
+      box-shadow: 0 0 50px rgba(255, 180, 30, 0.9);
+    }
+
+    .button:active {
+      transform: translate(-50%, -50%) scale(0.98);
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 30px rgba(255, 180, 30, 0.6); }
+      50% { box-shadow: 0 0 60px rgba(255, 180, 30, 1); }
+      100% { box-shadow: 0 0 30px rgba(255, 180, 30, 0.6); }
+    }
+
+    .hidden { display: none; }
+  </style>
+  <script src="./NoSleep.min.js"></script>
 </head>
 <body>
-    <div class="container">
-        <input type="button" class="button" value="Вперед Драконы!"/>
-    </div>
-    <script>
-      const DELAY = 500; //ms
-      const noSleep = new NoSleep();
-      const bodyEl = document.querySelector('.container');
+  <div class="container">
+    <input type="button" class="button" value="Вперед Драконы!"/>
+  </div>
+  <script>
+    const DELAY = 500; //ms
+    const noSleep = new NoSleep();
+    const bodyEl = document.querySelector('.container');
 
-      let wakeLockEnabled = false;
-      let currentColor = 1;
-      let to = null;
+    let wakeLockEnabled = false;
+    let currentColor = 1;
+    let to = null;
 
-      function toggleColor(){
-        if (currentColor){
-            document.body.style.backgroundColor = "#ffb41e";
-            bodyEl.style.backgroundColor = "#ffb41e";
-        } else {
-            document.body.style.backgroundColor = "#003c69";
-            bodyEl.style.backgroundColor = "#003c69";
-        }
-        currentColor = !currentColor;
+    function toggleColor(){
+      if (currentColor){
+        document.body.style.backgroundColor = "#ffb41e";
+        bodyEl.style.backgroundColor = "#ffb41e";
+      } else {
+        document.body.style.backgroundColor = "#003c69";
+        bodyEl.style.backgroundColor = "#003c69";
       }
+      currentColor = !currentColor;
+    }
 
-      function openFullscreen() {
-        if (bodyEl.requestFullscreen) {
-            bodyEl.requestFullscreen();
-        } else if (bodyEl.webkitRequestFullscreen) { /* Safari */
-            bodyEl.webkitRequestFullscreen();
-        } else if (bodyEl.msRequestFullscreen) { /* IE11 */
-            bodyEl.msRequestFullscreen();
-        }
+    function openFullscreen() {
+      if (bodyEl.requestFullscreen) {
+        bodyEl.requestFullscreen();
+      } else if (bodyEl.webkitRequestFullscreen) { /* Safari */
+        bodyEl.webkitRequestFullscreen();
+      } else if (bodyEl.msRequestFullscreen) { /* IE11 */
+        bodyEl.msRequestFullscreen();
       }
+    }
 
-      function closeFullscreen() {
-        if (document.exitFullscreen) {
-            document.exitFullscreen();
-        } else if (document.webkitExitFullscreen) { /* Safari */
-            document.webkitExitFullscreen();
-        } else if (document.msExitFullscreen) { /* IE11 */
-            document.msExitFullscreen();
-        }
+    function closeFullscreen() {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if (document.webkitExitFullscreen) { /* Safari */
+        document.webkitExitFullscreen();
+      } else if (document.msExitFullscreen) { /* IE11 */
+        document.msExitFullscreen();
       }
+    }
 
-      function toggleWakeLock(e) {
-        e.stopPropagation();
-        if (!wakeLockEnabled) {
-          noSleep.enable(); // keep the screen on!
-          wakeLockEnabled = true;
-          toggleEl.value = "";
-          toggleEl.classList.add("hidden");
-          to = window.setInterval(toggleColor, DELAY);
-          openFullscreen();
-        } else {
-          noSleep.disable(); // let the screen turn off.
-          wakeLockEnabled = false;
-          toggleEl.value = "Нажми меня";
-          toggleEl.classList.remove("hidden");
-          window.clearInterval(to);
-          closeFullscreen();
-        }
+    function toggleWakeLock(e) {
+      e.stopPropagation();
+      if (!wakeLockEnabled) {
+        noSleep.enable(); // keep the screen on!
+        wakeLockEnabled = true;
+        toggleEl.value = "";
+        toggleEl.classList.add("hidden");
+        to = window.setInterval(toggleColor, DELAY);
+        openFullscreen();
+      } else {
+        noSleep.disable(); // let the screen turn off.
+        wakeLockEnabled = false;
+        toggleEl.value = "Вперед Драконы!";
+        toggleEl.classList.remove("hidden");
+        window.clearInterval(to);
+        closeFullscreen();
       }
+    }
 
-      var toggleEl = document.querySelector(".button");
-      toggleEl.addEventListener('click', toggleWakeLock, false);
-      bodyEl.addEventListener('click', toggleWakeLock, false);
-    </script>
+    var toggleEl = document.querySelector(".button");
+    toggleEl.addEventListener('click', toggleWakeLock, false);
+    bodyEl.addEventListener('click', toggleWakeLock, false);
+  </script>
 </body>
 </html>
+
 
 
