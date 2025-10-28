@@ -13,16 +13,16 @@
     .button {
       position: absolute;
       left: 50%;
-      top: 50%;
+      top: 70%; /* нижняя треть страницы */
       transform: translate(-50%, -50%);
       font-weight: bold;
-      font-size: 44px;
-      padding: 28px 70px;
+      font-size: 56px;
+      padding: 40px 100px;
       border: none;
-      border-radius: 25px;
-      color: #fff;
+      border-radius: 35px;
+      color: #003c69; /* цвет шрифта */
       cursor: pointer;
-      text-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+      text-shadow: 0 0 5px rgba(255, 255, 255, 0.4);
       background: linear-gradient(
         135deg,
         #ffda73 0%,
@@ -62,7 +62,7 @@
     <input type="button" class="button" value="Вперед Драконы!"/>
   </div>
   <script>
-    const DELAY = 500; //ms
+    const DELAY = 500;
     const noSleep = new NoSleep();
     const bodyEl = document.querySelector('.container');
 
@@ -82,23 +82,15 @@
     }
 
     function openFullscreen() {
-      if (bodyEl.requestFullscreen) {
-        bodyEl.requestFullscreen();
-      } else if (bodyEl.webkitRequestFullscreen) {
-        bodyEl.webkitRequestFullscreen();
-      } else if (bodyEl.msRequestFullscreen) {
-        bodyEl.msRequestFullscreen();
-      }
+      if (bodyEl.requestFullscreen) bodyEl.requestFullscreen();
+      else if (bodyEl.webkitRequestFullscreen) bodyEl.webkitRequestFullscreen();
+      else if (bodyEl.msRequestFullscreen) bodyEl.msRequestFullscreen();
     }
 
     function closeFullscreen() {
-      if (document.exitFullscreen) {
-        document.exitFullscreen();
-      } else if (document.webkitExitFullscreen) {
-        document.webkitExitFullscreen();
-      } else if (document.msExitFullscreen) {
-        document.msExitFullscreen();
-      }
+      if (document.exitFullscreen) document.exitFullscreen();
+      else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+      else if (document.msExitFullscreen) document.msExitFullscreen();
     }
 
     function toggleWakeLock(e) {
@@ -126,7 +118,6 @@
   </script>
 </body>
 </html>
-
 
 
 
