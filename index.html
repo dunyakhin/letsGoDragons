@@ -15,7 +15,7 @@
     body {
       margin: 0;
       height: 100vh;
-      background-image: url('https://cloud.specialone.ru/index.php/s/j5H2e28sgkF4xSW/download?path=%2F%D0%9F%D0%B0%D1%82%D1%82%D0%B5%D1%80%D0%BD%D1%8B%2FCMYK&files=Shanghai%20Dragons_pattern_%D0%9F%D0%A0%D0%95%D0%92%D0%AC%D0%AE_dark.jpg');
+      background-image: url('Shanghai Dragons_pattern_ПРЕВЬЮ_dark.jpg');
       background-repeat: repeat;
       background-size: auto;
       background-position: center;
@@ -127,7 +127,46 @@
     function openFullscreen() {
       if (bodyEl.requestFullscreen) {
         bodyEl.requestFullscreen();
-      } else if (bodyEl.webkitRequestFullscreen
+      } else if (bodyEl.webkitRequestFullscreen) {
+        bodyEl.webkitRequestFullscreen();
+      } else if (bodyEl.msRequestFullscreen) {
+        bodyEl.msRequestFullscreen();
+      }
+    }
 
+    function closeFullscreen() {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      } else if (document.msExitFullscreen) {
+        document.msExitFullscreen();
+      }
+    }
 
+    function toggleWakeLock(e) {
+      e.stopPropagation();
+      if (!wakeLockEnabled) {
+        noSleep.enable();
+        wakeLockEnabled = true;
+        toggleEl.value = "";
+        toggleEl.classList.add("hidden");
+        to = window.setInterval(toggleColor, DELAY);
+        openFullscreen();
+      } else {
+        noSleep.disable();
+        wakeLockEnabled = false;
+        toggleEl.value = "Вперед Драконы!";
+        toggleEl.classList.remove("hidden");
+        window.clearInterval(to);
+        closeFullscreen();
+      }
+    }
+
+    var toggleEl = document.querySelector(".button");
+    toggleEl.addEventListener('click', toggleWakeLock, false);
+    bodyEl.addEventListener('click', toggleWakeLock, false);
+  </script>
+</body>
+</html>
 
