@@ -4,15 +4,6 @@
   <meta charset="UTF-8">
   <title>Вперед Драконы!</title>
   <style>
-    /* Подключаем локальный шрифт */
-    @font-face {
-      font-family: 'Hortika';
-      src: url('./fonts/Hortika.ttf') format('truetype'),
-           url('./fonts/Hortika.woff') format('woff');
-      font-weight: normal;
-      font-style: normal;
-    }
-
     .container {
       position: absolute;
       top: 0; right: 0; bottom: 0; left: 0;
@@ -22,15 +13,14 @@
     .button {
       position: absolute;
       left: 50%;
-      top: 80%; /* нижняя треть */
+      top: 80%; /* кнопка ниже */
       transform: translate(-50%, -50%);
-      font-family: 'Hortika', sans-serif; /* применяем локальный шрифт */
       font-weight: bold;
       font-size: 56px;
       padding: 40px 100px;
       border: none;
       border-radius: 35px;
-      color: #003c69; /* цвет текста */
+      color: #003c69;
       cursor: pointer;
       text-shadow: 0 0 5px rgba(255, 255, 255, 0.4);
       background: linear-gradient(
