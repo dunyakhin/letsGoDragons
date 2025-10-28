@@ -4,10 +4,18 @@
   <meta charset="UTF-8">
   <title>Вперед Драконы!</title>
   <style>
+    /* === Подключи свой шрифт здесь === */
+    @font-face {
+      font-family: "CustomFont";
+      src: url("./YourFont.ttf") format("truetype"); /* заменишь на свой файл */
+      font-weight: 600;
+      font-style: normal;
+    }
+
     body {
       margin: 0;
       height: 100vh;
-      background-image: url('Shanghai Dragons_pattern_ПРЕВЬЮ_dark.jpg');
+      background-image: url('https://cloud.specialone.ru/index.php/s/j5H2e28sgkF4xSW/download?path=%2F%D0%9F%D0%B0%D1%82%D1%82%D0%B5%D1%80%D0%BD%D1%8B%2FCMYK&files=Shanghai%20Dragons_pattern_%D0%9F%D0%A0%D0%95%D0%92%D0%AC%D0%AE_dark.jpg');
       background-repeat: repeat;
       background-size: auto;
       background-position: center;
@@ -19,15 +27,15 @@
       top: 0; right: 0; bottom: 0; left: 0;
     }
 
-    /* ==== КНОПКА ==== */
     .button {
       position: absolute;
       left: 50%;
-      top: 70%; /* Нижняя треть экрана */
+      top: 70%;
       transform: translate(-50%, -50%);
+      font-family: "CustomFont", "Segoe UI", Arial, sans-serif; /* тут будет твой шрифт */
       font-weight: bold;
-      font-size: 40pt; /* Увеличен в 2 раза */
-      padding: 30px 80px; /* Увеличен в 2 раза */
+      font-size: 40pt;
+      padding: 30px 80px;
       color: #003c69;
       border: none;
       border-radius: 18px;
@@ -37,10 +45,9 @@
       transition: all 0.3s ease;
       position: relative;
       overflow: hidden;
-      animation: pulse 3s infinite ease-in-out;
+      animation: pulse 1.8s infinite ease-in-out; /* 🔥 быстрее пульсация */
     }
 
-    /* Эффект переливающегося блика */
     .button::before {
       content: "";
       position: absolute;
@@ -55,7 +62,7 @@
         rgba(255, 255, 255, 0) 100%
       );
       transform: skewX(-25deg);
-      animation: shine 2.5s infinite;
+      animation: shine 2s infinite;
       pointer-events: none;
     }
 
@@ -65,7 +72,6 @@
       100% { left: 125%; }
     }
 
-    /* Плавное пульсирование кнопки */
     @keyframes pulse {
       0%, 100% {
         transform: translate(-50%, -50%) scale(1);
@@ -88,9 +94,7 @@
       animation: none;
     }
 
-    .hidden {
-      display: none;
-    }
+    .hidden { display: none; }
   </style>
 
   <script src="./NoSleep.min.js"></script>
@@ -123,47 +127,7 @@
     function openFullscreen() {
       if (bodyEl.requestFullscreen) {
         bodyEl.requestFullscreen();
-      } else if (bodyEl.webkitRequestFullscreen) {
-        bodyEl.webkitRequestFullscreen();
-      } else if (bodyEl.msRequestFullscreen) {
-        bodyEl.msRequestFullscreen();
-      }
-    }
+      } else if (bodyEl.webkitRequestFullscreen
 
-    function closeFullscreen() {
-      if (document.exitFullscreen) {
-        document.exitFullscreen();
-      } else if (document.webkitExitFullscreen) {
-        document.webkitExitFullscreen();
-      } else if (document.msExitFullscreen) {
-        document.msExitFullscreen();
-      }
-    }
-
-    function toggleWakeLock(e) {
-      e.stopPropagation();
-      if (!wakeLockEnabled) {
-        noSleep.enable();
-        wakeLockEnabled = true;
-        toggleEl.value = "";
-        toggleEl.classList.add("hidden");
-        to = window.setInterval(toggleColor, DELAY);
-        openFullscreen();
-      } else {
-        noSleep.disable();
-        wakeLockEnabled = false;
-        toggleEl.value = "Вперед Драконы!";
-        toggleEl.classList.remove("hidden");
-        window.clearInterval(to);
-        closeFullscreen();
-      }
-    }
-
-    var toggleEl = document.querySelector(".button");
-    toggleEl.addEventListener('click', toggleWakeLock, false);
-    bodyEl.addEventListener('click', toggleWakeLock, false);
-  </script>
-</body>
-</html>
 
 
