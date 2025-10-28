@@ -7,29 +7,35 @@
     /* Подключаем локальный шрифт */
     @font-face {
       font-family: 'Hortika';
-      src: url('https://cloud.specialone.ru/index.php/s/j5H2e28sgkF4xSW/download?path=%2F%D0%A8%D1%80%D0%B8%D1%84%D1%82%D1%8B&files=Horta_SD_Special.ttf') format('truetype'),
+      src: url('./fonts/Hortika.ttf') format('truetype'),
+           url('./fonts/Hortika.woff') format('woff');
       font-weight: normal;
       font-style: normal;
+    }
+
+    body {
+      margin: 0;
+      background: none; /* фона нет */
     }
 
     .container {
       position: absolute;
       top: 0; right: 0; bottom: 0; left: 0;
-      background-color: #003c69;
+      background: none; /* тоже без фона */
     }
 
     .button {
       position: absolute;
       left: 50%;
-      top: 80%; /* нижняя треть */
+      top: 80%; /* нижняя треть страницы */
       transform: translate(-50%, -50%);
       font-family: 'Hortika', sans-serif;
       font-weight: bold;
-      font-size: 72px; /* увеличенный размер шрифта */
+      font-size: 72px;
       padding: 50px 130px;
       border: none;
       border-radius: 35px;
-      color: #003c69;
+      color: #003c69; /* цвет шрифта */
       cursor: pointer;
       text-shadow: 0 0 5px rgba(255, 255, 255, 0.4);
       background: linear-gradient(
@@ -64,31 +70,18 @@
 
     .hidden { display: none; }
   </style>
+
   <script src="./NoSleep.min.js"></script>
 </head>
 <body>
   <div class="container">
     <input type="button" class="button" value="Вперед Драконы!"/>
   </div>
+
   <script>
-    const DELAY = 500;
     const noSleep = new NoSleep();
     const bodyEl = document.querySelector('.container');
-
     let wakeLockEnabled = false;
-    let currentColor = 1;
-    let to = null;
-
-    function toggleColor(){
-      if (currentColor){
-        document.body.style.backgroundColor = "#ffb41e";
-        bodyEl.style.backgroundColor = "#ffb41e";
-      } else {
-        document.body.style.backgroundColor = "#003c69";
-        bodyEl.style.backgroundColor = "#003c69";
-      }
-      currentColor = !currentColor;
-    }
 
     function openFullscreen() {
       if (bodyEl.requestFullscreen) bodyEl.requestFullscreen();
@@ -109,24 +102,23 @@
         wakeLockEnabled = true;
         toggleEl.value = "";
         toggleEl.classList.add("hidden");
-        to = window.setInterval(toggleColor, DELAY);
         openFullscreen();
       } else {
         noSleep.disable();
         wakeLockEnabled = false;
         toggleEl.value = "Вперед Драконы!";
         toggleEl.classList.remove("hidden");
-        window.clearInterval(to);
         closeFullscreen();
       }
     }
 
-    var toggleEl = document.querySelector(".button");
+    const toggleEl = document.querySelector(".button");
     toggleEl.addEventListener('click', toggleWakeLock, false);
     bodyEl.addEventListener('click', toggleWakeLock, false);
   </script>
 </body>
 </html>
+
 
 
 
