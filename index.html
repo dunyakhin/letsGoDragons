@@ -23,8 +23,9 @@
     }
 
     .container {
-      position: absolute;
-      top: 0; right: 0; bottom: 0; left: 0;
+      position: relative;
+      z-index: 1;
+      height: 100%;
     }
 
     .button {
@@ -36,7 +37,7 @@
       font-size: 40pt;
       padding: 30px 80px;
       color: #003c69;
-      border: none;
+      border: 3px solid rgba(255, 255, 255, 0.6);
       border-radius: 18px;
       cursor: pointer;
       background: linear-gradient(135deg, #ffb41e, #ffcb4f);
@@ -45,6 +46,7 @@
       position: relative;
       overflow: hidden;
       animation: pulse 1.8s infinite ease-in-out;
+      z-index: 2;
     }
 
     .button::before {
@@ -97,7 +99,12 @@
       display: none;
     }
   </style>
-
-  <script src="./NoSleep.min.js"></script>
 </head>
 <body>
+  <div class="container">
+    <button class="button">Вперёд, Драконы!</button>
+  </div>
+  <script src="./NoSleep.min.js"></script>
+</body>
+</html>
+
