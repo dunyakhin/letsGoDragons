@@ -1,51 +1,43 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Вперед Драконы!</title>
   <style>
-    /* ==== ФОН СТРАНИЦЫ ==== */
     body {
       margin: 0;
       height: 100vh;
-      background-image: url('https://cloud.specialone.ru/index.php/s/j5H2e28sgkF4xSW/download?path=%2F%D0%9F%D0%B0%D1%82%D1%82%D0%B5%D1%80%D0%BD%D1%8B%2FCMYK&files=Shanghai%20Dragons_pattern_%D0%9F%D0%A0%D0%95%D0%92%D0%AC%D0%AE_dark.jpg');
+      background-image: url('Shanghai Dragons_pattern_ПРЕВЬЮ_dark.jpg');
       background-repeat: repeat;
       background-size: auto;
       background-position: center;
-      font-family: "Horta SemiBold", "Segoe UI", Arial, sans-serif;
+      font-family: "Segoe UI", Arial, sans-serif;
     }
 
-    /* ==== КОНТЕЙНЕР ==== */
     .container {
       position: absolute;
-      top: 66.6%; /* Нижняя треть страницы */
-      left: 50%;
-      transform: translateX(-50%);
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      top: 0; right: 0; bottom: 0; left: 0;
     }
 
-    /* ==== КНОПКА ==== */
     .button {
-      font-family: "Horta SemiBold", "Segoe UI", Arial, sans-serif;
-      font-weight: 600;
-      font-size: 28pt; /* Увеличенный шрифт */
-      padding: 25px 60px; /* Более крупная кнопка */
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      font-weight: bold;
+      font-size: 20pt;
+      padding: 15px 40px;
       color: #003c69;
       border: none;
-      border-radius: 16px;
+      border-radius: 12px;
       cursor: pointer;
       background: linear-gradient(135deg, #ffb41e, #ffcb4f);
       box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
       transition: all 0.3s ease;
       position: relative;
       overflow: hidden;
-      animation: pulse 2.5s infinite ease-in-out;
     }
 
-    /* ==== ЭФФЕКТ ПЕРЕЛИВА ==== */
     .button::before {
       content: "";
       position: absolute;
@@ -61,22 +53,8 @@
       );
       transform: skewX(-25deg);
       animation: shine 3s infinite;
-      pointer-events: none;
     }
 
-    /* Пульсация */
-    @keyframes pulse {
-      0%, 100% {
-        transform: scale(1);
-        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-      }
-      50% {
-        transform: scale(1.1);
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-      }
-    }
-
-    /* Перелив */
     @keyframes shine {
       0% { left: -75%; }
       50% { left: 125%; }
@@ -84,12 +62,13 @@
     }
 
     .button:hover {
+      transform: translate(-50%, -50%) scale(1.1);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
       background: linear-gradient(135deg, #ffca47, #ffd86a);
     }
 
     .button:active {
-      transform: scale(0.98);
-      animation: none; /* Отключаем пульс при клике */
+      transform: translate(-50%, -50%) scale(0.98);
     }
 
     .hidden {
@@ -97,29 +76,17 @@
     }
   </style>
 
-  <!-- Подключение шрифта (если есть локально) -->
-  <!--
-  <style>
-  @font-face {
-    font-family: "Horta SemiBold";
-    src: url("./Horta-SemiBold.ttf") format("truetype");
-    font-weight: 600;
-    font-style: normal;
-  }
-  </style>
-  -->
   <script src="./NoSleep.min.js"></script>
 </head>
 <body>
   <div class="container">
-    <input type="button" class="button" value="Вперед Драконы!" />
+    <input type="button" class="button" value="Вперед Драконы!"/>
   </div>
 
   <script>
     const DELAY = 500;
     const noSleep = new NoSleep();
-    const containerEl = document.querySelector('.container');
-    const toggleEl = document.querySelector('.button');
+    const bodyEl = document.querySelector('.container');
 
     let wakeLockEnabled = false;
     let currentColor = 1;
@@ -128,19 +95,21 @@
     function toggleColor() {
       if (currentColor) {
         document.body.style.backgroundColor = "#ffb41e";
+        bodyEl.style.backgroundColor = "#ffb41e";
       } else {
         document.body.style.backgroundColor = "#003c69";
+        bodyEl.style.backgroundColor = "#003c69";
       }
       currentColor = !currentColor;
     }
 
     function openFullscreen() {
-      if (containerEl.requestFullscreen) {
-        containerEl.requestFullscreen();
-      } else if (containerEl.webkitRequestFullscreen) {
-        containerEl.webkitRequestFullscreen();
-      } else if (containerEl.msRequestFullscreen) {
-        containerEl.msRequestFullscreen();
+      if (bodyEl.requestFullscreen) {
+        bodyEl.requestFullscreen();
+      } else if (bodyEl.webkitRequestFullscreen) {
+        bodyEl.webkitRequestFullscreen();
+      } else if (bodyEl.msRequestFullscreen) {
+        bodyEl.msRequestFullscreen();
       }
     }
 
@@ -159,19 +128,23 @@
       if (!wakeLockEnabled) {
         noSleep.enable();
         wakeLockEnabled = true;
+        toggleEl.value = "";
         toggleEl.classList.add("hidden");
         to = window.setInterval(toggleColor, DELAY);
         openFullscreen();
       } else {
         noSleep.disable();
         wakeLockEnabled = false;
+        toggleEl.value = "Вперед Драконы!";
         toggleEl.classList.remove("hidden");
         window.clearInterval(to);
         closeFullscreen();
       }
     }
 
+    var toggleEl = document.querySelector(".button");
     toggleEl.addEventListener('click', toggleWakeLock, false);
+    bodyEl.addEventListener('click', toggleWakeLock, false);
   </script>
 </body>
 </html>
