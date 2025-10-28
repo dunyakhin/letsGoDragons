@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
   <title>Вперед Драконы!</title>
   <style>
+    /* ==== ФОН СТРАНИЦЫ ==== */
     body {
       margin: 0;
       height: 100vh;
@@ -11,13 +12,16 @@
       background-repeat: repeat;
       background-size: auto;
       background-position: center;
+      font-family: "Segoe UI", Arial, sans-serif;
     }
 
+    /* ==== КОНТЕЙНЕР ==== */
     .container {
       position: absolute;
       top: 0; right: 0; bottom: 0; left: 0;
     }
 
+    /* ==== КНОПКА ==== */
     .button {
       position: absolute;
       left: 50%;
@@ -109,7 +113,7 @@
       } else {
         noSleep.disable();
         wakeLockEnabled = false;
-        toggleEl.value = "Нажми меня";
+        toggleEl.value = "Вперед Драконы!";
         toggleEl.classList.remove("hidden");
         window.clearInterval(to);
         closeFullscreen();
