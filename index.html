@@ -16,39 +16,41 @@
       top: 50%;
       transform: translate(-50%, -50%);
       font-weight: bold;
-      font-size: 48px;
-      padding: 30px 80px;
+      font-size: 44px;
+      padding: 28px 70px;
       border: none;
-      border-radius: 30px;
+      border-radius: 25px;
       color: #fff;
-      background: linear-gradient(45deg, #ffb41e, #ffcc4d, #ffb41e);
-      background-size: 300% 300%;
       cursor: pointer;
-      text-shadow: 0 0 10px rgba(0,0,0,0.3);
-      box-shadow: 0 0 30px rgba(255, 180, 30, 0.6);
-      animation: gradientShift 3s ease-in-out infinite, pulse 2s ease-in-out infinite;
+      text-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+      background: linear-gradient(
+        135deg,
+        #ffda73 0%,
+        #ffb41e 20%,
+        #ffe39c 40%,
+        #ffb41e 60%,
+        #ffda73 80%,
+        #ffb41e 100%
+      );
+      background-size: 300% 300%;
+      animation: metallicShift 5s linear infinite;
+      box-shadow: 0 0 15px rgba(255, 180, 30, 0.4);
       transition: transform 0.2s ease, box-shadow 0.3s ease;
     }
 
     .button:hover {
       transform: translate(-50%, -50%) scale(1.05);
-      box-shadow: 0 0 50px rgba(255, 180, 30, 0.9);
+      box-shadow: 0 0 25px rgba(255, 180, 30, 0.6);
     }
 
     .button:active {
       transform: translate(-50%, -50%) scale(0.98);
     }
 
-    @keyframes gradientShift {
+    @keyframes metallicShift {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
-    }
-
-    @keyframes pulse {
-      0% { box-shadow: 0 0 30px rgba(255, 180, 30, 0.6); }
-      50% { box-shadow: 0 0 60px rgba(255, 180, 30, 1); }
-      100% { box-shadow: 0 0 30px rgba(255, 180, 30, 0.6); }
     }
 
     .hidden { display: none; }
@@ -82,9 +84,9 @@
     function openFullscreen() {
       if (bodyEl.requestFullscreen) {
         bodyEl.requestFullscreen();
-      } else if (bodyEl.webkitRequestFullscreen) { /* Safari */
+      } else if (bodyEl.webkitRequestFullscreen) {
         bodyEl.webkitRequestFullscreen();
-      } else if (bodyEl.msRequestFullscreen) { /* IE11 */
+      } else if (bodyEl.msRequestFullscreen) {
         bodyEl.msRequestFullscreen();
       }
     }
@@ -92,9 +94,9 @@
     function closeFullscreen() {
       if (document.exitFullscreen) {
         document.exitFullscreen();
-      } else if (document.webkitExitFullscreen) { /* Safari */
+      } else if (document.webkitExitFullscreen) {
         document.webkitExitFullscreen();
-      } else if (document.msExitFullscreen) { /* IE11 */
+      } else if (document.msExitFullscreen) {
         document.msExitFullscreen();
       }
     }
@@ -102,14 +104,14 @@
     function toggleWakeLock(e) {
       e.stopPropagation();
       if (!wakeLockEnabled) {
-        noSleep.enable(); // keep the screen on!
+        noSleep.enable();
         wakeLockEnabled = true;
         toggleEl.value = "";
         toggleEl.classList.add("hidden");
         to = window.setInterval(toggleColor, DELAY);
         openFullscreen();
       } else {
-        noSleep.disable(); // let the screen turn off.
+        noSleep.disable();
         wakeLockEnabled = false;
         toggleEl.value = "Вперед Драконы!";
         toggleEl.classList.remove("hidden");
@@ -124,6 +126,7 @@
   </script>
 </body>
 </html>
+
 
 
 
