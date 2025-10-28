@@ -30,19 +30,51 @@
       font-weight: bold;
       font-size: 20pt;
       padding: 15px 40px;
-      color: #003c69; /* контрастный тёмно-синий текст */
-      background-color: #ffb41e; /* основной цвет */
+      color: #003c69;
       border: none;
       border-radius: 12px;
       cursor: pointer;
+      background: linear-gradient(135deg, #ffb41e, #ffcb4f);
       box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
       transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ==== АНИМАЦИЯ ПЕРЕЛИВА ==== */
+    .button::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -75%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(
+        120deg,
+        rgba(255, 255, 255, 0.4) 0%,
+        rgba(255, 255, 255, 0.1) 50%,
+        rgba(255, 255, 255, 0) 100%
+      );
+      transform: skewX(-25deg);
+      animation: shine 3s infinite;
+    }
+
+    @keyframes shine {
+      0% {
+        left: -75%;
+      }
+      50% {
+        left: 125%;
+      }
+      100% {
+        left: 125%;
+      }
     }
 
     .button:hover {
       transform: translate(-50%, -50%) scale(1.1);
-      background-color: #ffd45c; /* чуть светлее при наведении */
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+      background: linear-gradient(135deg, #ffca47, #ffd86a);
     }
 
     .button:active {
