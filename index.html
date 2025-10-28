@@ -1,1 +1,96 @@
-<!DOCTYPE html> <html lang="ru"> <head> <meta charset="UTF-8"> <title>Вперед Драконы!</title> <style> @font-face { font-family: "CustomFont"; src: url("./YourFont.ttf") format("truetype"); font-weight: 600; font-style: normal; } body { margin: 0; height: 100vh; background-image: url('https://cloud.specialone.ru/index.php/s/j5H2e28sgkF4xSW/download?path=%2F%D0%9F%D0%B0%D1%82%D1%82%D0%B5%D1%80%D0%BD%D1%8B%2FCMYK&files=Shanghai%20Dragons_pattern_%D0%9F%D0%A0%D0%95%D0%92%D0%AC%D0%AE_dark.jpg'); background-repeat: repeat; background-size: auto; background-position: center; font-family: "CustomFont", "Segoe UI", Arial, sans-serif; transition: background-color 0.4s ease; } .container { position: absolute; top: 0; right: 0; bottom: 0; left: 0; } .button { position: absolute; left: 50%; top: 70%; transform: translate(-50%, -50%); font-weight: bold; font-size: 40pt; padding: 30px 80px; color: #003c69; border: none; border-radius: 18px; cursor: pointer; background: linear-gradient(135deg, #ffb41e, #ffcb4f); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4); transition: all 0.3s ease; position: relative; overflow: hidden; animation: pulse 1.8s infinite ease-in-out; } .button::before { content: ""; position: absolute; top: 0; left: -75%; width: 50%; height: 100%; background: linear-gradient( 120deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0) 100% ); transform: skewX(-25deg); animation: shine 2s infinite; pointer-events: none; } @keyframes shine { 0% { left: -75%; } 50% { left: 125%; } 100% { left: 125%; } } @keyframes pulse { 0%, 100% { transform: translate(-50%, -50%) scale(1); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4); } 50% { transform: translate(-50%, -50%) scale(1.08); box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6); } } .button:hover { transform: translate(-50%, -50%) scale(1.1); box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6); background: linear-gradient(135deg, #ffca47, #ffd86a); } .button:active { transform: translate(-50%, -50%) scale(0.95); animation: none; } .hidden { display: none; } </style> <script src="./NoSleep.min.js"></script> </head> <body>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Вперед Драконы!</title>
+<style>
+@font-face {
+  font-family: "CustomFont";
+  src: url("./YourFont.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  background-image: url('https://cloud.specialone.ru/index.php/s/j5H2e28sgkF4xSW/download?path=%2F%D0%9F%D0%B0%D1%82%D1%82%D0%B5%D1%80%D0%BD%D1%8B%2FCMYK&files=Shanghai%20Dragons_pattern_%D0%9F%D0%A0%D0%95%D0%92%D0%AC%D0%AE_dark.jpg');
+  background-repeat: repeat;
+  background-size: auto;
+  background-position: center;
+  font-family: "CustomFont", "Segoe UI", Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button {
+  font-weight: bold;
+  font-size: 40pt;
+  padding: 30px 80px;
+  color: #003c69;
+  border: none;
+  border-radius: 18px;
+  cursor: pointer;
+  background: linear-gradient(135deg, #ffb41e, #ffcb4f);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  animation: pulse 1.8s infinite ease-in-out;
+}
+
+.button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0.6) 0%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: skewX(-25deg);
+  animation: shine 2s infinite;
+  pointer-events: none;
+}
+
+@keyframes shine {
+  0% { left: -75%; }
+  50% { left: 125%; }
+  100% { left: 125%; }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  }
+  50% {
+    transform: scale(1.08);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+  }
+}
+
+.button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+  background: linear-gradient(135deg, #ffca47, #ffd86a);
+}
+
+.button:active {
+  transform: scale(0.95);
+  animation: none;
+}
+</style>
+</head>
+<body>
+
+<button class="button">Вперёд, Драконы!</button>
+
+</body>
+</html>
+
