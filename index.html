@@ -17,11 +17,11 @@
       background: none;
     }
 
-    /* ——— КРАСИВАЯ АНИМИРОВАННАЯ КНОПКА ——— */
+    /* ——— КРАСИВАЯ МЕТАЛЛИЧЕСКАЯ КНОПКА ——— */
     .button {
       position: absolute;
       left: 50%;
-      top: 65%; /* нижняя треть экрана */
+      top: 75%; /* кнопка ниже на странице */
       transform: translate(-50%, -50%);
       font-weight: bold;
       font-size: 28pt;
@@ -29,12 +29,32 @@
       border: none;
       border-radius: 16px;
       color: #003c69;
-      background: linear-gradient(135deg, #ffb41e, #ffd978, #ffb41e);
-      background-size: 200% 200%;
+      background: linear-gradient(135deg, #ffb41e 0%, #ffd978 30%, #ffb41e 60%, #fff2b2 100%);
+      background-size: 300% 300%;
       box-shadow: 0 0 25px rgba(255, 180, 30, 0.6);
       cursor: pointer;
+      position: relative;
+      overflow: hidden;
       animation: metallicShift 3s ease-in-out infinite;
       transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .button::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -75%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(120deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 80%);
+      transform: skewX(-25deg);
+      animation: shine 3s infinite;
+    }
+
+    @keyframes shine {
+      0% { left: -75%; }
+      50% { left: 125%; }
+      100% { left: 125%; }
     }
 
     .button:hover {
@@ -87,9 +107,9 @@
     function openFullscreen() {
       if (bodyEl.requestFullscreen) {
         bodyEl.requestFullscreen();
-      } else if (bodyEl.webkitRequestFullscreen) {
+      } else if (bodyEl.webkitRequestFullscreen) { /* Safari */
         bodyEl.webkitRequestFullscreen();
-      } else if (bodyEl.msRequestFullscreen) {
+      } else if (bodyEl.msRequestFullscreen) { /* IE11 */
         bodyEl.msRequestFullscreen();
       }
     }
@@ -130,7 +150,6 @@
   </script>
 </body>
 </html>
-
 
 
 
