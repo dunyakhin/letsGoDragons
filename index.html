@@ -14,16 +14,27 @@
     .container {
       position: absolute;
       top: 0; right: 0; bottom: 0; left: 0;
-      background: url("fonts/logo.svg") no-repeat center center;
+      background: url("https://example.com/your-background.jpg") no-repeat center center;
       background-size: cover;
       transition: background 0.3s ease;
     }
 
-    /* ——— КРАСИВАЯ МЕТАЛЛИЧЕСКАЯ КНОПКА ——— */
+    /* логотип */
+    .logo {
+      position: absolute;
+      top: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 200px; /* можно менять под свой SVG */
+      height: auto;
+      z-index: 2;
+    }
+
+    /* ——— КНОПКА ——— */
     .button {
       position: absolute;
       left: 50%;
-      top: 75%; /* кнопка ниже на странице */
+      top: 75%;
       transform: translate(-50%, -50%);
       font-weight: bold;
       font-size: 28pt;
@@ -39,6 +50,7 @@
       overflow: hidden;
       animation: metallicShift 3s ease-in-out infinite;
       transition: transform 0.25s ease, box-shadow 0.25s ease;
+      z-index: 3;
     }
 
     .button::after {
@@ -79,11 +91,14 @@
 </head>
 <body>
   <div class="container">
+    <!-- 🔹 сюда вставляешь свой SVG -->
+    <img src="your-logo.svg" alt="Логотип" class="logo" />
+
     <input type="button" class="button" value="Вперед Драконы!"/>
   </div>
 
   <script>
-    const DELAY = 500; // мс
+    const DELAY = 500;
     const noSleep = new NoSleep();
     const bodyEl = document.querySelector('.container');
 
@@ -91,9 +106,11 @@
     let currentColor = 1;
     let to = null;
 
-    // Изначально показываем фон
+    const logoEl = document.querySelector('.logo');
+
+    // начальный фон
     document.body.style.backgroundColor = "transparent";
-    bodyEl.style.backgroundImage = 'url("fonts/Shanghai Dragons_pattern_ПРЕВЬЮ_dark.jpg")';
+    bodyEl.style.backgroundImage = 'url("https://example.com/your-background.jpg")';
     bodyEl.style.backgroundSize = 'cover';
     bodyEl.style.backgroundPosition = 'center';
 
@@ -111,9 +128,9 @@
     function openFullscreen() {
       if (bodyEl.requestFullscreen) {
         bodyEl.requestFullscreen();
-      } else if (bodyEl.webkitRequestFullscreen) { /* Safari */
+      } else if (bodyEl.webkitRequestFullscreen) {
         bodyEl.webkitRequestFullscreen();
-      } else if (bodyEl.msRequestFullscreen) { /* IE11 */
+      } else if (bodyEl.msRequestFullscreen) {
         bodyEl.msRequestFullscreen();
       }
     }
@@ -121,7 +138,7 @@
     function closeFullscreen() {
       if (document.exitFullscreen) {
         document.exitFullscreen();
-      } else if (document.webkitExitFullscreen) { /* Safari */
+      } else if (document.webkitExitFullscreen) {
         document.webkitExitFullscreen();
       } else if (document.msExitFullscreen) {
         document.msExitFullscreen();
@@ -135,7 +152,7 @@
         noSleep.enable();
         wakeLockEnabled = true;
         toggleEl.classList.add("hidden");
-        // Убираем фон при начале мигания
+        logoEl.classList.add("hidden"); // скрываем логотип при мигании
         bodyEl.style.backgroundImage = 'none';
         to = window.setInterval(toggleColor, DELAY);
         openFullscreen();
@@ -143,8 +160,8 @@
         noSleep.disable();
         wakeLockEnabled = false;
         toggleEl.classList.remove("hidden");
+        logoEl.classList.remove("hidden");
         window.clearInterval(to);
-        // Возвращаем фон обратно
         document.body.style.backgroundColor = "transparent";
         bodyEl.style.backgroundColor = "transparent";
         bodyEl.style.backgroundImage = 'url("https://example.com/your-background.jpg")';
@@ -158,3 +175,4 @@
   </script>
 </body>
 </html>
+
