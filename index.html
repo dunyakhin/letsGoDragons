@@ -1,4 +1,136 @@
-<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <title>Вперед Драконы!</title> <style> .container {position: absolute; top: 0; right: 0; bottom: 0; left: 0;} .button { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); font-weight: bold; font-size: 20pt; padding: 5px; } .hidden {display: none;} </style> <script src="./NoSleep.min.js"></script> </head> <body> <div class="container"> <input type="button" class="button" value="Вперед Драконы!"/> </div> <script> const DELAY = 500; //ms const noSleep = new NoSleep(); const bodyEl = document.querySelector('.container'); let wakeLockEnabled = false; let currentColor = 1; let to = null; function toggleColor(){ if (currentColor){ document.body.style.backgroundColor = "#ffb41e"; bodyEl.style.backgroundColor = "#ffb41e"; } else { document.body.style.backgroundColor = "#003c69"; bodyEl.style.backgroundColor = "#003c69"; } currentColor = !currentColor; } function openFullscreen() { if (bodyEl.requestFullscreen) { bodyEl.requestFullscreen(); } else if (bodyEl.webkitRequestFullscreen) { /* Safari */ bodyEl.webkitRequestFullscreen(); } else if (bodyEl.msRequestFullscreen) { /* IE11 */ bodyEl.msRequestFullscreen(); } } function closeFullscreen() { if (document.exitFullscreen) { document.exitFullscreen(); } else if (document.webkitExitFullscreen) { /* Safari */ document.webkitExitFullscreen(); } else if (document.msExitFullscreen) { /* IE11 */ document.msExitFullscreen(); } } function toggleWakeLock(e) { e.stopPropagation(); if (!wakeLockEnabled) { noSleep.enable(); // keep the screen on! wakeLockEnabled = true; toggleEl.value = ""; toggleEl.classList.add("hidden"); to = window.setInterval(toggleColor, DELAY); openFullscreen(); } else { noSleep.disable(); // let the screen turn off. wakeLockEnabled = false; toggleEl.value = "Нажми меня"; toggleEl.classList.remove("hidden"); window.clearInterval(to); closeFullscreen(); } } var toggleEl = document.querySelector(".button"); toggleEl.addEventListener('click', toggleWakeLock, false); bodyEl.addEventListener('click', toggleWakeLock, false); </script> </body> </html>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Вперед Драконы!</title>
+  <style>
+    body {
+      margin: 0;
+      background: none;
+      overflow: hidden;
+      font-family: sans-serif;
+    }
+
+    .container {
+      position: absolute;
+      top: 0; right: 0; bottom: 0; left: 0;
+      background: none;
+    }
+
+    /* ——— КРАСИВАЯ АНИМИРОВАННАЯ КНОПКА ——— */
+    .button {
+      position: absolute;
+      left: 50%;
+      top: 65%; /* нижняя треть экрана */
+      transform: translate(-50%, -50%);
+      font-weight: bold;
+      font-size: 28pt;
+      padding: 20px 60px;
+      border: none;
+      border-radius: 16px;
+      color: #003c69;
+      background: linear-gradient(135deg, #ffb41e, #ffd978, #ffb41e);
+      background-size: 200% 200%;
+      box-shadow: 0 0 25px rgba(255, 180, 30, 0.6);
+      cursor: pointer;
+      animation: metallicShift 3s ease-in-out infinite;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .button:hover {
+      transform: translate(-50%, -50%) scale(1.05);
+      box-shadow: 0 0 35px rgba(255, 180, 30, 0.8);
+    }
+
+    @keyframes metallicShift {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+
+  <script src="./NoSleep.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <input type="button" class="button" value="Вперед Драконы!"/>
+  </div>
+
+  <script>
+    const DELAY = 500; // мс
+    const noSleep = new NoSleep();
+    const bodyEl = document.querySelector('.container');
+
+    let wakeLockEnabled = false;
+    let currentColor = 1;
+    let to = null;
+
+    // Фон по умолчанию — чистый
+    document.body.style.backgroundColor = "transparent";
+    bodyEl.style.backgroundColor = "transparent";
+
+    function toggleColor(){
+      if (currentColor){
+        document.body.style.backgroundColor = "#ffb41e";
+        bodyEl.style.backgroundColor = "#ffb41e";
+      } else {
+        document.body.style.backgroundColor = "#003c69";
+        bodyEl.style.backgroundColor = "#003c69";
+      }
+      currentColor = !currentColor;
+    }
+
+    function openFullscreen() {
+      if (bodyEl.requestFullscreen) {
+        bodyEl.requestFullscreen();
+      } else if (bodyEl.webkitRequestFullscreen) {
+        bodyEl.webkitRequestFullscreen();
+      } else if (bodyEl.msRequestFullscreen) {
+        bodyEl.msRequestFullscreen();
+      }
+    }
+
+    function closeFullscreen() {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      } else if (document.msExitFullscreen) {
+        document.msExitFullscreen();
+      }
+    }
+
+    function toggleWakeLock(e) {
+      e.stopPropagation();
+
+      if (!wakeLockEnabled) {
+        noSleep.enable(); // экран не гаснет
+        wakeLockEnabled = true;
+        toggleEl.classList.add("hidden"); // кнопка исчезает
+        to = window.setInterval(toggleColor, DELAY);
+        openFullscreen();
+      } else {
+        noSleep.disable(); // возвращаем всё
+        wakeLockEnabled = false;
+        toggleEl.classList.remove("hidden");
+        window.clearInterval(to);
+        document.body.style.backgroundColor = "transparent";
+        bodyEl.style.backgroundColor = "transparent";
+        closeFullscreen();
+      }
+    }
+
+    const toggleEl = document.querySelector(".button");
+    toggleEl.addEventListener('click', toggleWakeLock, false);
+    bodyEl.addEventListener('click', toggleWakeLock, false);
+  </script>
+</body>
+</html>
+
 
 
 
