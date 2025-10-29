@@ -1,3 +1,236 @@
-<!DOCTYPE html> <html lang="ru"> <head> <meta charset="UTF-8"> <title>Вперед Драконы!</title> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <style> /* 🔹 Подключение локального шрифта */ @font-face { font-family: 'Hortika'; src: url('fonts/horta.ttf') format('woff2'), url('./fonts/Hortika.woff') format('woff'); font-display: swap; } body { margin: 0; background: none; overflow: hidden; font-family: 'Hortika', sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; transition: background-color 0.6s ease; } .container { position: relative; width: 100%; height: 100%; background: url('fonts/back.jpg') no-repeat center center; background-size: cover; transition: background-color 0.6s ease; } /* 🔹 Логотип */ .logo { position: absolute; top: 34%; left: 50%; transform: translate(-50%, -50%); width: 500px; height: auto; z-index: 2; opacity: 0; animation: fadeIn 1.5s ease-out forwards, pulse 3s ease-in-out infinite 1.5s; } @keyframes fadeIn { from { opacity: 0; transform: translate(-50%, -50%) scale(0.95); } to { opacity: 1; transform: translate(-50%, -50%) scale(1); } } @keyframes pulse { 0% { filter: drop-shadow(0 0 0px rgba(255,180,30,0.3)); } 50% { filter: drop-shadow(0 0 20px rgba(255,180,30,0.6)); } 100% { filter: drop-shadow(0 0 0px rgba(255,180,30,0.3)); } } /* 🔹 Кнопка */ .button { position: absolute; left: 50%; top: 70%; transform: translate(-50%, -50%); font-family: 'Hortika', sans-serif; font-weight: bold; font-size: 56pt; /* увеличенный шрифт */ padding: 35px 110px; border: none; border-radius: 32px; color: #003c69; background: linear-gradient(135deg, #ffb41e 0%, #ffd978 30%, #ffb41e 60%, #fff2b2 100%); background-size: 300% 300%; box-shadow: 0 0 50px rgba(255, 180, 30, 0.6); cursor: pointer; overflow: hidden; animation: metallicShift 3s ease-in-out infinite; transition: transform 0.25s ease, box-shadow 0.25s ease; z-index: 3; letter-spacing: 2px; } .button::after { content: ""; position: absolute; top: 0; left: -75%; width: 50%; height: 100%; background: linear-gradient(120deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 80%); transform: skewX(-25deg); animation: shine 3s infinite; } @keyframes shine { 0% { left: -75%; } 50% { left: 125%; } 100% { left: 125%; } } @keyframes metallicShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } } .button:hover { transform: translate(-50%, -50%) scale(1.05); box-shadow: 0 0 70px rgba(255, 180, 30, 0.8); } .hidden { display: none; } /* 🔹 Адаптация под мобильные устройства */ @media (max-width: 900px) { .logo { width: 60vw; top: 35%; } .button { top: 75%; font-size: 6vw; padding: 4vw 10vw; border-radius: 20px; box-shadow: 0 0 25px rgba(255, 180, 30, 0.5); } } @media (max-width: 480px) { .logo { width: 70vw; top: 32%; } .button { top: 78%; font-size: 7vw; padding: 4vw 12vw; } } </style> <script src="./NoSleep.min.js"></script> </head> <body> <div class="container"> <img src="fonts/logo.svg" alt="Логотип" class="logo" /> <input type="button" class="button" value="Вперед Драконы!"/> </div> <script> const DELAY = 500; const noSleep = new NoSleep(); const bodyEl = document.querySelector('.container'); const logoEl = document.querySelector('.logo'); const toggleEl = document.querySelector('.button'); let wakeLockEnabled = false; let currentColor = 1; let to = null; // 🔹 Путь к твоему фоновому изображению const originalBackground = 'url("fonts/back.jpg")'; // начальное состояние document.body.style.backgroundColor = "transparent"; bodyEl.style.backgroundImage = originalBackground; bodyEl.style.backgroundSize = 'cover'; bodyEl.style.backgroundPosition = 'center'; function toggleColor() { if (currentColor) { document.body.style.backgroundColor = "#ffb41e"; bodyEl.style.backgroundColor = "#ffb41e"; } else { document.body.style.backgroundColor = "#003c69"; bodyEl.style.backgroundColor = "#003c69"; } currentColor = !currentColor; } function openFullscreen() { if (bodyEl.requestFullscreen) { bodyEl.requestFullscreen(); } else if (bodyEl.webkitRequestFullscreen) { bodyEl.webkitRequestFullscreen(); } else if (bodyEl.msRequestFullscreen) { bodyEl.msRequestFullscreen(); } } function closeFullscreen() { if (document.exitFullscreen) { document.exitFullscreen(); } else if (document.webkitExitFullscreen) { document.webkitExitFullscreen(); } else if (document.msExitFullscreen) { document.msExitFullscreen(); } } function toggleWakeLock(e) { e.stopPropagation(); if (!wakeLockEnabled) { noSleep.enable(); wakeLockEnabled = true; toggleEl.classList.add("hidden"); logoEl.classList.add("hidden"); bodyEl.style.backgroundImage = 'none'; to = window.setInterval(toggleColor, DELAY); openFullscreen(); } else { noSleep.disable(); wakeLockEnabled = false; toggleEl.classList.remove("hidden"); logoEl.classList.remove("hidden"); window.clearInterval(to); document.body.style.backgroundColor = "transparent"; bodyEl.style.backgroundColor = "transparent"; bodyEl.style.backgroundImage = originalBackground; // ✅ восстановление оригинального фона closeFullscreen(); } } toggleEl.addEventListener('click', toggleWakeLock, false); bodyEl.addEventListener('click', toggleWakeLock, false); </script> </body> </html>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Вперед Драконы!</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* 🔹 Подключение локального шрифта */
+    @font-face {
+      font-family: 'Hortika';
+      src: url('./fonts/horta.ttf') format('woff2'),
+           url('./fonts/Hortika.woff') format('woff');
+      font-display: swap;
+    }
 
+    body {
+      margin: 0;
+      background: none;
+      overflow: hidden;
+      font-family: 'Hortika', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      transition: background-color 0.6s ease;
+    }
+
+    .container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: url("fonts/back.jpg") no-repeat center center;
+      background-size: cover;
+      transition: background-color 0.6s ease;
+    }
+
+    /* 🔹 Логотип */
+    .logo {
+      position: absolute;
+      top: 34%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 500px;
+      height: auto;
+      z-index: 2;
+      opacity: 0;
+      animation: fadeIn 1.5s ease-out forwards, pulse 3s ease-in-out infinite 1.5s;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translate(-50%, -50%) scale(0.95); }
+      to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    }
+
+    @keyframes pulse {
+      0% { filter: drop-shadow(0 0 0px rgba(255,180,30,0.3)); }
+      50% { filter: drop-shadow(0 0 20px rgba(255,180,30,0.6)); }
+      100% { filter: drop-shadow(0 0 0px rgba(255,180,30,0.3)); }
+    }
+
+    /* 🔹 Кнопка */
+    .button {
+      position: absolute;
+      left: 50%;
+      top: 70%;
+      transform: translate(-50%, -50%);
+      font-family: 'Hortika', sans-serif;
+      font-weight: bold;
+      font-size: 56pt; /* увеличенный шрифт */
+      padding: 35px 110px;
+      border: none;
+      border-radius: 32px;
+      color: #003c69;
+      background: linear-gradient(135deg, #ffb41e 0%, #ffd978 30%, #ffb41e 60%, #fff2b2 100%);
+      background-size: 300% 300%;
+      box-shadow: 0 0 50px rgba(255, 180, 30, 0.6);
+      cursor: pointer;
+      overflow: hidden;
+      animation: metallicShift 3s ease-in-out infinite;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      z-index: 3;
+      letter-spacing: 2px;
+    }
+
+    .button::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -75%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(120deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 80%);
+      transform: skewX(-25deg);
+      animation: shine 3s infinite;
+    }
+
+    @keyframes shine {
+      0% { left: -75%; }
+      50% { left: 125%; }
+      100% { left: 125%; }
+    }
+
+    @keyframes metallicShift {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .button:hover {
+      transform: translate(-50%, -50%) scale(1.05);
+      box-shadow: 0 0 70px rgba(255, 180, 30, 0.8);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    /* 🔹 Адаптация под мобильные устройства */
+    @media (max-width: 900px) {
+      .logo {
+        width: 60vw;
+        top: 35%;
+      }
+
+      .button {
+        top: 75%;
+        font-size: 6vw;
+        padding: 4vw 10vw;
+        border-radius: 20px;
+        box-shadow: 0 0 25px rgba(255, 180, 30, 0.5);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .logo {
+        width: 70vw;
+        top: 32%;
+      }
+
+      .button {
+        top: 78%;
+        font-size: 7vw;
+        padding: 4vw 12vw;
+      }
+    }
+  </style>
+
+  <script src="./NoSleep.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <img src="fonts/logo.svg" alt="Логотип" class="logo" />
+    <input type="button" class="button" value="Вперед Драконы!"/>
+  </div>
+
+  <script>
+    const DELAY = 500;
+    const noSleep = new NoSleep();
+    const bodyEl = document.querySelector('.container');
+    const logoEl = document.querySelector('.logo');
+    const toggleEl = document.querySelector('.button');
+
+    let wakeLockEnabled = false;
+    let currentColor = 1;
+    let to = null;
+
+    // 🔹 Путь к твоему фоновому изображению
+    const originalBackground = 'url("fonts/back.jpg")';
+
+    // начальное состояние
+    document.body.style.backgroundColor = "transparent";
+    bodyEl.style.backgroundImage = originalBackground;
+    bodyEl.style.backgroundSize = 'cover';
+    bodyEl.style.backgroundPosition = 'center';
+
+    function toggleColor() {
+      if (currentColor) {
+        document.body.style.backgroundColor = "#ffb41e";
+        bodyEl.style.backgroundColor = "#ffb41e";
+      } else {
+        document.body.style.backgroundColor = "#003c69";
+        bodyEl.style.backgroundColor = "#003c69";
+      }
+      currentColor = !currentColor;
+    }
+
+    function openFullscreen() {
+      if (bodyEl.requestFullscreen) {
+        bodyEl.requestFullscreen();
+      } else if (bodyEl.webkitRequestFullscreen) {
+        bodyEl.webkitRequestFullscreen();
+      } else if (bodyEl.msRequestFullscreen) {
+        bodyEl.msRequestFullscreen();
+      }
+    }
+
+    function closeFullscreen() {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      } else if (document.msExitFullscreen) {
+        document.msExitFullscreen();
+      }
+    }
+
+    function toggleWakeLock(e) {
+      e.stopPropagation();
+
+      if (!wakeLockEnabled) {
+        noSleep.enable();
+        wakeLockEnabled = true;
+        toggleEl.classList.add("hidden");
+        logoEl.classList.add("hidden");
+        bodyEl.style.backgroundImage = 'none';
+        to = window.setInterval(toggleColor, DELAY);
+        openFullscreen();
+      } else {
+        noSleep.disable();
+        wakeLockEnabled = false;
+        toggleEl.classList.remove("hidden");
+        logoEl.classList.remove("hidden");
+        window.clearInterval(to);
+        document.body.style.backgroundColor = "transparent";
+        bodyEl.style.backgroundColor = "transparent";
+        bodyEl.style.backgroundImage = originalBackground; // ✅ восстановление оригинального фона
+        closeFullscreen();
+      }
+    }
+
+    toggleEl.addEventListener('click', toggleWakeLock, false);
+    bodyEl.addEventListener('click', toggleWakeLock, false);
+  </script>
+</body>
+</html>
 
