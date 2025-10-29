@@ -22,7 +22,7 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
-      transition: background-color 0.6s ease; /* плавное мигание */
+      transition: background-color 0.6s ease;
     }
 
     .container {
@@ -31,7 +31,7 @@
       height: 100%;
       background: url("https://example.com/your-background.jpg") no-repeat center center;
       background-size: cover;
-      transition: background-color 0.6s ease; /* плавное мигание контейнера */
+      transition: background-color 0.6s ease;
     }
 
     /* 🔹 Логотип */
@@ -75,7 +75,6 @@
       background-size: 300% 300%;
       box-shadow: 0 0 50px rgba(255, 180, 30, 0.6);
       cursor: pointer;
-      position: relative;
       overflow: hidden;
       animation: metallicShift 3s ease-in-out infinite;
       transition: transform 0.25s ease, box-shadow 0.25s ease;
@@ -117,15 +116,31 @@
     }
 
     /* 🔹 Адаптация под мобильные устройства */
-    @media (max-width: 600px) {
+    @media (max-width: 900px) {
+      .logo {
+        width: 60vw;
+        top: 30%;
+      }
+
+      .button {
+        top: 80%;
+        font-size: 6vw;
+        padding: 4vw 10vw;
+        border-radius: 20px;
+        box-shadow: 0 0 25px rgba(255, 180, 30, 0.5);
+      }
+    }
+
+    @media (max-width: 480px) {
       .logo {
         width: 70vw;
-        top: 35%;
+        top: 28%;
       }
+
       .button {
-        font-size: 28pt;
-        padding: 20px 60px;
-        top: 80%;
+        top: 82%;
+        font-size: 7vw;
+        padding: 4vw 12vw;
       }
     }
   </style>
@@ -134,7 +149,7 @@
 </head>
 <body>
   <div class="container">
-    <img src="fonts/logo.svg" alt="Логотип" class="logo" />
+    <img src="your-logo.svg" alt="Логотип" class="logo" />
     <input type="button" class="button" value="Вперед Драконы!"/>
   </div>
 
@@ -215,3 +230,5 @@
   </script>
 </body>
 </html>
+
+
