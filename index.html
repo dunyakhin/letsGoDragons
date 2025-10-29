@@ -19,7 +19,7 @@
       transition: background 0.3s ease;
     }
 
-    /* 🔹 Анимация логотипа — плавное появление и "дыхание" */
+    /* 🔹 Логотип с анимацией дыхания */
     @keyframes fadeIn {
       from { opacity: 0; transform: translateX(-50%) scale(0.95); }
       to { opacity: 1; transform: translateX(-50%) scale(1); }
@@ -43,21 +43,21 @@
       animation: fadeIn 1.5s ease-out forwards, pulse 3s ease-in-out infinite 1.5s;
     }
 
-    /* 🔹 Кнопка — увеличена в 3 раза */
+    /* 🔹 Кнопка — уменьшена и опущена ниже */
     .button {
       position: absolute;
       left: 50%;
-      top: 75%;
+      top: 85%; /* ↓ было 75%, теперь ниже */
       transform: translate(-50%, -50%);
       font-weight: bold;
-      font-size: 84pt;
-      padding: 60px 180px;
+      font-size: 48pt; /* было 84pt */
+      padding: 30px 100px; /* было 60x180 */
       border: none;
-      border-radius: 48px;
+      border-radius: 32px;
       color: #003c69;
       background: linear-gradient(135deg, #ffb41e 0%, #ffd978 30%, #ffb41e 60%, #fff2b2 100%);
       background-size: 300% 300%;
-      box-shadow: 0 0 75px rgba(255, 180, 30, 0.6);
+      box-shadow: 0 0 50px rgba(255, 180, 30, 0.6);
       cursor: pointer;
       position: relative;
       overflow: hidden;
@@ -86,7 +86,7 @@
 
     .button:hover {
       transform: translate(-50%, -50%) scale(1.05);
-      box-shadow: 0 0 105px rgba(255, 180, 30, 0.8);
+      box-shadow: 0 0 70px rgba(255, 180, 30, 0.8);
     }
 
     @keyframes metallicShift {
@@ -187,4 +187,3 @@
   </script>
 </body>
 </html>
-
