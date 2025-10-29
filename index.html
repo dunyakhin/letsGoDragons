@@ -19,32 +19,45 @@
       transition: background 0.3s ease;
     }
 
-    /* логотип */
+    /* 🔹 Анимация логотипа — плавное появление и "дыхание" */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateX(-50%) scale(0.95); }
+      to { opacity: 1; transform: translateX(-50%) scale(1); }
+    }
+
+    @keyframes pulse {
+      0% { transform: translateX(-50%) scale(1); filter: drop-shadow(0 0 0px rgba(255,180,30,0.3)); }
+      50% { transform: translateX(-50%) scale(1.05); filter: drop-shadow(0 0 20px rgba(255,180,30,0.6)); }
+      100% { transform: translateX(-50%) scale(1); filter: drop-shadow(0 0 0px rgba(255,180,30,0.3)); }
+    }
+
     .logo {
       position: absolute;
       top: 10%;
       left: 50%;
       transform: translateX(-50%);
-      width: 200px; /* можно менять под свой SVG */
+      width: 600px;
       height: auto;
       z-index: 2;
+      opacity: 0;
+      animation: fadeIn 1.5s ease-out forwards, pulse 3s ease-in-out infinite 1.5s;
     }
 
-    /* ——— КНОПКА ——— */
+    /* 🔹 Кнопка — увеличена в 3 раза */
     .button {
       position: absolute;
       left: 50%;
       top: 75%;
       transform: translate(-50%, -50%);
       font-weight: bold;
-      font-size: 28pt;
-      padding: 20px 60px;
+      font-size: 84pt;
+      padding: 60px 180px;
       border: none;
-      border-radius: 16px;
+      border-radius: 48px;
       color: #003c69;
       background: linear-gradient(135deg, #ffb41e 0%, #ffd978 30%, #ffb41e 60%, #fff2b2 100%);
       background-size: 300% 300%;
-      box-shadow: 0 0 25px rgba(255, 180, 30, 0.6);
+      box-shadow: 0 0 75px rgba(255, 180, 30, 0.6);
       cursor: pointer;
       position: relative;
       overflow: hidden;
@@ -73,7 +86,7 @@
 
     .button:hover {
       transform: translate(-50%, -50%) scale(1.05);
-      box-shadow: 0 0 35px rgba(255, 180, 30, 0.8);
+      box-shadow: 0 0 105px rgba(255, 180, 30, 0.8);
     }
 
     @keyframes metallicShift {
@@ -91,8 +104,8 @@
 </head>
 <body>
   <div class="container">
-    <!-- 🔹 сюда вставляешь свой SVG -->
-    <img src="fonts/logo1.svg" alt="Логотип" class="logo" />
+    <!-- 🔹 Твой SVG логотип -->
+    <img src="your-logo.svg" alt="Логотип" class="logo" />
 
     <input type="button" class="button" value="Вперед Драконы!"/>
   </div>
@@ -108,9 +121,8 @@
 
     const logoEl = document.querySelector('.logo');
 
-    // начальный фон
     document.body.style.backgroundColor = "transparent";
-    bodyEl.style.backgroundImage = 'url("fonts/Shanghai Dragons_pattern_ПРЕВЬЮ_dark.jpg")';
+    bodyEl.style.backgroundImage = 'url("https://example.com/your-background.jpg")';
     bodyEl.style.backgroundSize = 'cover';
     bodyEl.style.backgroundPosition = 'center';
 
@@ -152,7 +164,7 @@
         noSleep.enable();
         wakeLockEnabled = true;
         toggleEl.classList.add("hidden");
-        logoEl.classList.add("hidden"); // скрываем логотип при мигании
+        logoEl.classList.add("hidden");
         bodyEl.style.backgroundImage = 'none';
         to = window.setInterval(toggleColor, DELAY);
         openFullscreen();
