@@ -3,63 +3,67 @@
 <head>
   <meta charset="UTF-8">
   <title>Вперед Драконы!</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
       margin: 0;
       background: none;
       overflow: hidden;
       font-family: sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
 
     .container {
-      position: absolute;
-      top: 0; right: 0; bottom: 0; left: 0;
+      position: relative;
+      width: 100%;
+      height: 100%;
       background: url("https://example.com/your-background.jpg") no-repeat center center;
       background-size: cover;
-      transition: background 0.3s ease;
     }
 
-    /* 🔹 Логотип с анимацией дыхания */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateX(-50%) scale(0.95); }
-      to { opacity: 1; transform: translateX(-50%) scale(1); }
-    }
-
-    @keyframes pulse {
-      0% { transform: translateX(-50%) scale(1); filter: drop-shadow(0 0 0px rgba(255,180,30,0.3)); }
-      50% { transform: translateX(-50%) scale(1.05); filter: drop-shadow(0 0 20px rgba(255,180,30,0.6)); }
-      100% { transform: translateX(-50%) scale(1); filter: drop-shadow(0 0 0px rgba(255,180,30,0.3)); }
-    }
-
+    /* 🔹 Логотип по центру, адаптивный */
     .logo {
       position: absolute;
-      top: 10%;
+      top: 50%;
       left: 50%;
-      transform: translateX(-50%);
-      width: 600px;
+      transform: translate(-50%, -50%);
+      width: min(60vw, 500px);
       height: auto;
       z-index: 2;
       opacity: 0;
       animation: fadeIn 1.5s ease-out forwards, pulse 3s ease-in-out infinite 1.5s;
     }
 
-    /* 🔹 Кнопка — уменьшена и опущена ниже */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translate(-50%, -50%) scale(0.95); }
+      to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    }
+
+    @keyframes pulse {
+      0% { filter: drop-shadow(0 0 0px rgba(255,180,30,0.3)); }
+      50% { filter: drop-shadow(0 0 20px rgba(255,180,30,0.6)); }
+      100% { filter: drop-shadow(0 0 0px rgba(255,180,30,0.3)); }
+    }
+
+    /* 🔹 Кнопка адаптивная и с металлическим блеском */
     .button {
       position: absolute;
       left: 50%;
-      top: 85%; /* ↓ было 75%, теперь ниже */
+      top: 80%;
       transform: translate(-50%, -50%);
       font-weight: bold;
-      font-size: 48pt; /* было 84pt */
-      padding: 30px 100px; /* было 60x180 */
+      font-size: clamp(18pt, 4vw, 48pt);
+      padding: clamp(10px, 2vw, 25px) clamp(40px, 6vw, 100px);
       border: none;
       border-radius: 32px;
       color: #003c69;
       background: linear-gradient(135deg, #ffb41e 0%, #ffd978 30%, #ffb41e 60%, #fff2b2 100%);
       background-size: 300% 300%;
-      box-shadow: 0 0 50px rgba(255, 180, 30, 0.6);
+      box-shadow: 0 0 30px rgba(255, 180, 30, 0.5);
       cursor: pointer;
-      position: relative;
       overflow: hidden;
       animation: metallicShift 3s ease-in-out infinite;
       transition: transform 0.25s ease, box-shadow 0.25s ease;
@@ -84,19 +88,29 @@
       100% { left: 125%; }
     }
 
-    .button:hover {
-      transform: translate(-50%, -50%) scale(1.05);
-      box-shadow: 0 0 70px rgba(255, 180, 30, 0.8);
-    }
-
     @keyframes metallicShift {
       0%   { background-position: 0% 50%; }
       50%  { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
 
+    .button:hover {
+      transform: translate(-50%, -50%) scale(1.05);
+      box-shadow: 0 0 50px rgba(255, 180, 30, 0.8);
+    }
+
     .hidden {
       display: none;
+    }
+
+    /* 🔹 Адаптация для маленьких экранов */
+    @media (max-width: 600px) {
+      .logo {
+        width: 70vw;
+      }
+      .button {
+        top: 85%;
+      }
     }
   </style>
 
@@ -104,9 +118,7 @@
 </head>
 <body>
   <div class="container">
-    <!-- 🔹 Твой SVG логотип -->
     <img src="fonts/logo.svg" alt="Логотип" class="logo" />
-
     <input type="button" class="button" value="Вперед Драконы!"/>
   </div>
 
@@ -120,14 +132,15 @@
     let to = null;
 
     const logoEl = document.querySelector('.logo');
+    const toggleEl = document.querySelector('.button');
 
     document.body.style.backgroundColor = "transparent";
     bodyEl.style.backgroundImage = 'url("https://example.com/your-background.jpg")';
     bodyEl.style.backgroundSize = 'cover';
     bodyEl.style.backgroundPosition = 'center';
 
-    function toggleColor(){
-      if (currentColor){
+    function toggleColor() {
+      if (currentColor) {
         document.body.style.backgroundColor = "#ffb41e";
         bodyEl.style.backgroundColor = "#ffb41e";
       } else {
@@ -181,7 +194,6 @@
       }
     }
 
-    const toggleEl = document.querySelector(".button");
     toggleEl.addEventListener('click', toggleWakeLock, false);
     bodyEl.addEventListener('click', toggleWakeLock, false);
   </script>
