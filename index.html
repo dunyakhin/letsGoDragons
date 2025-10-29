@@ -8,7 +8,7 @@
     /* 🔹 Подключение локального шрифта */
     @font-face {
       font-family: 'Hortika';
-      src: url('./fonts/Hortika.woff2') format('woff2'),
+      src: url('fonts/horta.ttf') format('woff2'),
            url('./fonts/Hortika.woff') format('woff');
       font-display: swap;
     }
@@ -149,7 +149,7 @@
 </head>
 <body>
   <div class="container">
-    <img src="your-logo.svg" alt="Логотип" class="logo" />
+    <img src="fonts/logo.svg" alt="Логотип" class="logo" />
     <input type="button" class="button" value="Вперед Драконы!"/>
   </div>
 
@@ -165,7 +165,7 @@
     let to = null;
 
     // 🔹 Путь к твоему фоновому изображению
-    const originalBackground = 'url("your-background.jpg")';
+    const originalBackground = 'url("fonts/back.jpg")';
 
     // начальное состояние
     document.body.style.backgroundColor = "transparent";
